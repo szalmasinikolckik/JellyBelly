@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <title>Melyik Jelly Belly vagy?</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Jelly Belly Mini Gamek</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <h1>🍬 Melyik Jelly Belly vagy?</h1>
+    <h1>🍬 Jelly Belly API Mini Gamek</h1>
+    <section id="random-game">
+        <h2>🎲 Véletlen íz</h2>
+        <button id="randomBtn">Mutass egy véletlen ízt!</button>
+        <div id="randomResult"></div>
+    </section>
 
-    <input type="date" id="birthday">
-    <button onclick="getJelly()">Megnézem!</button>
+    <section id="search-game">
+        <h2>🔎 Íz keresése</h2>
+        <input type="text" id="searchInput" placeholder="Írd be az íz nevét...">
+        <button id="searchBtn">Keresés</button>
+        <div id="searchResult"></div>
+    </section>
 
-    <div id="result"></div>
-  </div>
+    <section id="guess-game">
+        <h2>❓ Találd ki az ízt!</h2>
+        <p id="guessDescription"></p>
+        <input type="text" id="guessInput" placeholder="Mi az íz neve?">
+        <button id="guessBtn">Tipp</button>
+        <p id="guessFeedback"></p>
+    </section>
 
+    <script src="index.js"></script>
 </body>
 </html>
