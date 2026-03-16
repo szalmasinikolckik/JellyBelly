@@ -43,3 +43,25 @@ document.getElementById("dailyBtn").addEventListener("click", () => {
         <img src="${bean.imageUrl}" width="120">
     `;
 });
+
+const luckyMessages = [
+    "Ma ez a jellyebelly szerencsés napod íze! 🍬",
+    "Ez a jellybelly boldoggá tesz ma! 😄",
+    "Figyelj erre a jellybellyre, szerencsés meglepetés vár! 🎁",
+    "Ez a jellybelly energiát ad a napodra! ⚡",
+    "Ma ez a jellybelly a kedvenced lehet! ❤️"
+];
+
+document.getElementById("luckyBtn").addEventListener("click", () => {
+
+    if (beans.length === 0) return alert("Még töltődnek az ízek!");
+
+    const bean = beans[Math.floor(Math.random() * beans.length)];
+    const message = luckyMessages[Math.floor(Math.random() * luckyMessages.length)];
+
+    document.getElementById("luckyResult").innerHTML = `
+        <h3>${bean.flavorName}</h3>
+        <img src="${bean.imageUrl}" width="120">
+        <p>${message}</p>
+    `;
+});
