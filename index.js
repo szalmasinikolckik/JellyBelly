@@ -1,16 +1,20 @@
-const API = "https://jellybellywikiapi.onrender.com/api/beans";
-
 let beans = [];
 
-async function loadBeans() {
-    const res = await fetch(API);
-    const data = await res.json();
-    beans = data.items;
+async function loadAllBeans() {
+    for (let i = 1; i <= 12; i++) {
+        const url = `https://jellybellywikiapi.onrender.com/api/beans?pageIndex=${i}`;
+        
+        const res = await fetch(url);
+        const data = await res.json();
 
-    console.log("Összes íz betöltve:", beans.length);
+        beans.push(...data.items);
+    }
+
+    console.log(beans.length);
 }
 
-loadBeans();
+loadAllBeans();
+console.log(beans.length)
 
 
 document.getElementById("randomBtn").addEventListener("click", () => {
@@ -19,7 +23,7 @@ document.getElementById("randomBtn").addEventListener("click", () => {
     const bean = beans[Math.floor(Math.random() * beans.length)];
     document.getElementById("randomResult").innerHTML = `
         <h3>${bean.flavorName}</h3>
-        <p>${bean.description}</p>
+        <p>${bean.description}</p>  
         <img src="${bean.imageUrl}" width="120">
     `;
 });
