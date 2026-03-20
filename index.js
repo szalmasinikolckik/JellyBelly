@@ -28,18 +28,22 @@ document.getElementById("randomBtn").addEventListener("click", () => {
     `;
 });
 
-document.getElementById("dailyBtn").addEventListener("click", () => {
 
+document.getElementById("dailyBtn").addEventListener("click", () => {
+    let datePicker = document.getElementById(datePicker);
+    if (datePicker.value == null) {
+        return;
+    }
     if (beans.length === 0) return alert("Még töltődnek az ízek!");
 
-   
-    const today = new Date();
+    // let today = new Date();
 
-    
-    const dayNumber = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    // const dayNumber = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
 
+    // const bean = beans[dayNumber % beans.length];
 
-    const bean = beans[dayNumber % beans.length];
+    let day = new Date(datePicker.value);
+    console.log(day)
 
     document.getElementById("dailyResult").innerHTML = `
         <h3>${bean.flavorName}</h3>
