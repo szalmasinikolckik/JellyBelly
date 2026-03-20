@@ -1,29 +1,75 @@
-const API = "https://jellybellywikiapi.onrender.com/api/beans";
-
 let beans = [];
 
-async function loadBeans() {
-    const requests = [];
-    for (let i = 0; i < 10; i++) {
-        requests.push(fetch(`${API}?page=${i}`).then(res => res.json()));
+async function loadAllBeans() {
+    for (let i = 1; i <= 12; i++) {
+        const url = `https://jellybellywikiapi.onrender.com/api/beans?pageIndex=${i}`;
         
+        const res = await fetch(url);
+        const data = await res.json();
+
+        beans.push(...data.items);
     }
-    const results = await Promise.all(requests);
-    beans = results.flatMap(data => data.beans)
+
+    console.log(beans.length);
 }
 
-
-loadBeans();
+loadAllBeans();
+console.log(beans.length)
 
 
 document.getElementById("randomBtn").addEventListener("click", () => {
-    alert(beans.length);
+    if (beans.length === 0) return alert("Még töltődnek az ízek!");
+
     const bean = beans[Math.floor(Math.random() * beans.length)];
     document.getElementById("randomResult").innerHTML = `
-    <h3>${bean.flavorName}</h3>
-    <p>${bean.description}</p>
-    <img src="${bean.imageUrl}" width="120">
+        <h3>${bean.flavorName}</h3>
+        <p>${bean.description}</p>  
+        <img src="${bean.imageUrl}" width="120">
     `;
 });
 
 
+document.getElementById("dailyBtn").addEventListener("click", () => {
+    let datePicker = document.getElementById(datePicker);
+    if (datePicker.value == null) {
+        return;
+    }
+    if (beans.length === 0) return alert("Még töltődnek az ízek!");
+
+    // let today = new Date();
+
+    // const dayNumber = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
+    // const bean = beans[dayNumber % beans.length];
+
+    let day = new Date(datePicker.value);
+    console.log(day)
+
+    document.getElementById("dailyResult").innerHTML = `
+        <h3>${bean.flavorName}</h3>
+        <p>${bean.description}</p>
+        <img src="${bean.imageUrl}" width="120">
+    `;
+});
+
+const luckyMessages = [
+    "Ma ez a jellyebelly szerencsés napod íze! 🍬",
+    "Ez a jellybelly boldoggá tesz ma! 😄",
+    "Figyelj erre a jellybellyre, szerencsés meglepetés vár! 🎁",
+    "Ez a jellybelly energiát ad a napodra! ⚡",
+    "Ma ez a jellybelly a kedvenced lehet! ❤️"
+];
+
+document.getElementById("luckyBtn").addEventListener("click", () => {
+
+    if (beans.length === 0) return alert("Még töltődnek az ízek!");
+
+    const bean = beans[Math.floor(Math.random() * beans.length)];
+    const message = luckyMessages[Math.floor(Math.random() * luckyMessages.length)];
+
+    document.getElementById("luckyResult").innerHTML = `
+        <h3>${bean.flavorName}</h3>
+        <img src="${bean.imageUrl}" width="120">
+        <p>${message}</p>
+    `;
+});
