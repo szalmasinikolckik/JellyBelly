@@ -30,20 +30,20 @@ document.getElementById("randomBtn").addEventListener("click", () => {
 
 
 document.getElementById("dailyBtn").addEventListener("click", () => {
-    let datePicker = document.getElementById(datePicker);
-    if (datePicker.value == null) {
-        return;
-    }
+    let datePicker = document.getElementById("datePicker");
+
+    if (!datePicker.value) return;
+
     if (beans.length === 0) return alert("Még töltődnek az ízek!");
 
-    // let today = new Date();
-
-    // const dayNumber = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-
-    // const bean = beans[dayNumber % beans.length];
-
     let day = new Date(datePicker.value);
-    console.log(day)
+
+    const seed =
+        day.getFullYear() * 10000 +
+        (day.getMonth() + 1) * 100 +
+        day.getDate();
+
+    const bean = beans[seed % beans.length];
 
     document.getElementById("dailyResult").innerHTML = `
         <h3>${bean.flavorName}</h3>
